@@ -23,5 +23,13 @@ namespace Filmstudion.Data.Repository
 
             return await query.ToArrayAsync().ConfigureAwait(false);
         }
+
+        public async Task<FilmStudio> GetFilmStudioByName(string studioName)
+        {
+            var query = _appDbContext.FilmStudios
+                .Where(f => f.StudioName == studioName);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

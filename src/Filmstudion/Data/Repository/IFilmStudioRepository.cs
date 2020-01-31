@@ -8,6 +8,7 @@ namespace Filmstudion.Data.Repository
 {
     public interface IFilmStudioRepository
     {
-        Task<FilmStudio[]> GetAllFilmStudios(); 
+        Task<FilmStudio[]> GetAllFilmStudios();
+        Task<FilmStudio> GetFilmStudioByName(string studioName);
     }
 }
