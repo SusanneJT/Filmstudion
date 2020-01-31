@@ -1,0 +1,25 @@
+#carouselExampleCaptions{
+    width:80%;
+    margin:0 auto;
+    display:none;
+}
+.card{
+    height:auto;
+}
+p{
+    font-size:16px;
+}
+
+.padding-card{
+    padding:3.1% 0;
+}
+
+#rover-image img{
+    width:75%;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding-top:3%;
+  
+}
+
+
