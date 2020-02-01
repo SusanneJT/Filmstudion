@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Filmstudion
 {
@@ -34,7 +35,12 @@ namespace Filmstudion
             services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
             //services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
 
-            services.AddAutoMapper(typeof(Startup)); 
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
 
             services.AddControllers();
         }
@@ -46,6 +52,15 @@ namespace Filmstudion
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
