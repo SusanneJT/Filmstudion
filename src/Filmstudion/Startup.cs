@@ -33,7 +33,7 @@ namespace Filmstudion
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
-            //services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 
