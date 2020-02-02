@@ -3,7 +3,7 @@ class Movie {
         this.URL = "https://localhost:44393/api/filmstudios/"
     }
 
-    async GetAll() {
-        return fetch(this.URL + "Movies").then(response => response.json());
+    async GetAll(studioName) {
+        return fetch(this.URL + studioName + "/movies").then(response => response.json());
     }
 }
