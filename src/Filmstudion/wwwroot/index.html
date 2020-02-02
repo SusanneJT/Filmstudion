@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +32,14 @@
                             <a class="nav-link text-light" href="#">Hantera filmstudios</a>
                         </li>
                     </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Välj filmstudio
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropDownItems">
 
+                    <div class="dropdown">
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Välj filmstudio
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropDownItems">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,6 +47,14 @@
     </header>
 
     <article>
+        <div class="container" id="WarningBox">
+            <div class="row justify-content-center">
+                <div class="col-md-8 border border-warning mt-5 p-3 text-center">
+                   <h6 class="text-warning font-weight-bold" id="WarningText">Välj filmstudio för att se tillgängliga filmer</h6>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-8 ">

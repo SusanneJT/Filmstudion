@@ -1,5 +1,10 @@
 
+if (sessionStorage.getItem("ChosenStudio") != null) {
+    $("#WarningBox").hide();
+    $("#dropdownMenuButton").html(sessionStorage.getItem("ChosenStudio"));
 
+}
+   
 
 const request = async () => {
     //this.URL = "https://localhost:44393/api/filmstudios";
@@ -20,6 +25,7 @@ function ChooseFilmStudio(studioName) {
     console.log(studioName);
     sessionStorage.setItem("ChosenStudio", studioName);
     $("#dropdownMenuButton").html(studioName);
+    $("#WarningBox").hide();
 }
 
     
