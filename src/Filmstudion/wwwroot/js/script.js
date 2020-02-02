@@ -1,16 +1,16 @@
+filmstudio = new FilmStudio();
+movie = new Movie();
 
 if (sessionStorage.getItem("ChosenStudio") != null) {
     $("#WarningBox").hide();
     $("#dropdownMenuButton").html(sessionStorage.getItem("ChosenStudio"));
-
+    AllMovies(sessionStorage.getItem("ChosenStudio"));
 }
 
-filmstudio = new FilmStudio();
-movie = new Movie();
+
 
 $(document).ready(async function () {
     AllStudios();
-    AllMovies();
 });
 
 async function AllStudios() {
@@ -27,23 +27,23 @@ function ChooseFilmStudio(studioName) {
     sessionStorage.setItem("ChosenStudio", studioName);
     $("#dropdownMenuButton").html(studioName);
     $("#WarningBox").hide();
+    AllMovies(sessionStorage.getItem("ChosenStudio"));
 }
 
-async function AllMovies() {
-    var movies = await movie.GetAll();
+async function AllMovies(studioName) {
+    var movies = await movie.GetAll(studioName);
+    $("#MovieBox").empty();
     $.each(movies, function (i) {
 
-        $('<div class="mt-3 p-3"><div class="card h-100" style="width: 15rem;">'
-            + '<img class= "card-img-top" src="/img/image-not-found.png" alt="Card image cap">'
-            + '<div class="card-body d-flex flex-column">'
-            + '<h5 class="card-title">' + movies[i].movieTitle + '</h5>'
-            +  '<a href="#" class="btn btn-primary btn-sm mt-auto">Mer info</a>'
-            + '</div>'
-            + '</div></div>').appendTo("#MovieBox");
+        $('<li class="list-group-item d-flex justify-content-between align-items-center">'
+           + '<div class="image-parent">'
+           + '  <img src="/img/image-not-found.png" class="img-fluid" alt="quixote">'
+           + '</div>'
+           + '<h6>' + movies[i].movieTitle + '</h6>'
+           + '<a href="#">Mer info</a>'
+           + '<button>Låna</button>'
+            + '</li>').appendTo("#MovieUl");
 
-        console.log(movies[i].movieTitle);
-        //$('<a class="dropdown-item" href="#" onclick="ChooseFilmStudio(\''
-            //+ studios[i].studioName + '\')">' + studios[i].studioName + '</a > ').appendTo("#dropDownItems");
     });
 }
 

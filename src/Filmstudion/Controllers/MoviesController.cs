@@ -13,7 +13,7 @@ namespace Filmstudion.Controllers
 {
 
     [ApiController]
-    [Route("api/filmstudios/{controller}")]
+    [Route("api/filmstudios/{studioName}/{movies}")]
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
