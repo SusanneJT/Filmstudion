@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Filmstudion.Data.Repository;
 using Filmstudion.Models;
 using AutoMapper;
+using Filmstudion.Data;
 
 namespace Filmstudion.Controllers
 {
@@ -17,11 +18,14 @@ namespace Filmstudion.Controllers
     {
         private readonly IFilmstudioRepository _filmstudioRepository;
         private readonly IMapper _mapper;
+        private readonly ILendedMovieRepository _lendedMovieRepository;
 
-        public FilmstudiosController(IFilmstudioRepository filmstudioRepository, IMapper mapper)
+        public FilmstudiosController(IFilmstudioRepository filmstudioRepository, 
+            IMapper mapper, ILendedMovieRepository lendedMovieRepository)
         {
             _filmstudioRepository = filmstudioRepository;
             _mapper = mapper;
+            _lendedMovieRepository = lendedMovieRepository;
         }
 
         // GET: api/FilmStudios
@@ -68,6 +72,23 @@ namespace Filmstudion.Controllers
                 if (result == null) return NotFound();
 
                 return _mapper.Map<FilmstudioModel>(result);
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+        [HttpGet("{studioId:int}/LendedMovies")]
+        public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(int studioId, bool onlyActive = false)
+        {
+            try
+            {
+                var result =  _lendedMovieRepository.GetAllMoviesForLenderId(studioId, onlyActive);
+
+                if (result == null) return NotFound();
+
+                return Ok(result);
 
             }
             catch (Exception)
