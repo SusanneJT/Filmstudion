@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Data
 {
-    public class LendedMoviesProfile : Profile
+    public class MovieProfile : Profile
     {
-        public LendedMoviesProfile()
+        public MovieProfile()
         {
-            CreateMap<LendedMovie, LendedMovieModel>();
+            CreateMap<Movie, MovieModel>();
         }
         
     }

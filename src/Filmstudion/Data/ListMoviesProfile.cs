@@ -12,6 +12,7 @@ namespace Filmstudion.Data
         public ListMoviesProfile()
         {
             CreateMap<Movie, ListMoviesModel>();
+
         }
         
     }

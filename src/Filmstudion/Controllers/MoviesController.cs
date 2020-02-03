@@ -8,21 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using Filmstudion.Data.Repository;
 using Filmstudion.Models;
 using AutoMapper;
+using Filmstudion.Data;
 
 namespace Filmstudion.Controllers
 {
 
     [ApiController]
-    [Route("api/filmstudios/{studioName}/{movies}")]
+    [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
+        private readonly ILendedMovieRepository _lendedMovieRepository;
 
-        public MoviesController(IMovieRepository movieRepository, IMapper mapper)
+        public MoviesController(IMovieRepository movieRepository, 
+            IMapper mapper, ILendedMovieRepository lendedMovieRepository)
         {
             _movieRepository = movieRepository;
             _mapper = mapper;
+            _lendedMovieRepository = lendedMovieRepository;
         }
 
         // GET: api/Movies
@@ -39,22 +43,31 @@ namespace Filmstudion.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
             }
         }
-        /*
-                // GET: api/Movies/5
-                [HttpGet("{id}")]
-                public async Task<ActionResult<Movie>> GetMovie(int id)
+
+        // GET: api/Movies/5
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<MovieModel>> GetMovie(int id)
+        {
+            try
+            {
+                var movie =  _lendedMovieRepository.GetMovieById(id);
+
+                if (movie == null)
                 {
-                    var movie = await _context.Movies.FindAsync(id);
-
-                    if (movie == null)
-                    {
-                        return NotFound();
-                    }
-
-                    return movie;
+                    return NotFound();
                 }
 
-                // PUT: api/Movies/5
+                return Ok(movie);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+
+
+             /*   // PUT: api/Movies/5
                 // To protect from overposting attacks, please enable the specific properties you want to bind to, for
                 // more details see https://aka.ms/RazorPagesCRUD.
                 [HttpPut("{id}")]

@@ -16,7 +16,7 @@ namespace Filmstudion.Data.Repository
         }
         public DbSet<Filmstudio> Filmstudios { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Filmstudion.Data.LendedMovie> LendedMovie { get; set; }
+        //public DbSet<Filmstudion.Data.LendedMovie> LendedMovie { get; set; }
         //public DbSet<Lending> Lendings { get; set; }
         //public DbSet<Rating> Ratings { get; set; }
         //public DbSet<Trivia> Trivia { get; set; }
