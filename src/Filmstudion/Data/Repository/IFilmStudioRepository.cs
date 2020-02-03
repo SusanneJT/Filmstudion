@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Data.Repository
 {
-    public interface IFilmStudioRepository
+    public interface IFilmstudioRepository
     {
-        Task<FilmStudio[]> GetAllFilmStudios();
-        Task<FilmStudio> GetFilmStudioByName(string studioName);
+        Task<Filmstudio[]> GetAllFilmstudios();
+        Task<Filmstudio> GetFilmstudioByName(string studioName);
+        Task<Filmstudio> GetFilmstudioById(int studioId);
+
     }
 }

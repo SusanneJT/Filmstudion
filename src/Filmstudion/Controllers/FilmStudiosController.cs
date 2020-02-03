@@ -13,26 +13,26 @@ namespace Filmstudion.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FilmStudiosController : ControllerBase
+    public class FilmstudiosController : ControllerBase
     {
-        private readonly IFilmStudioRepository _filmStudioRepository;
+        private readonly IFilmstudioRepository _filmstudioRepository;
         private readonly IMapper _mapper;
 
-        public FilmStudiosController(IFilmStudioRepository filmsStudioRepository, IMapper mapper)
+        public FilmstudiosController(IFilmstudioRepository filmstudioRepository, IMapper mapper)
         {
-            _filmStudioRepository = filmsStudioRepository;
+            _filmstudioRepository = filmstudioRepository;
             _mapper = mapper;
         }
 
         // GET: api/FilmStudios
         [HttpGet]
-        public async Task<ActionResult<FilmStudioModel[]>> GetFilmStudios()
+        public async Task<ActionResult<FilmstudioModel[]>> GetFilmStudios()
         {
             //return await _filmStudioRepository.GetAllFilmStudios();
             try
             {
-                var results = await _filmStudioRepository.GetAllFilmStudios();
-                return _mapper.Map<FilmStudioModel[]>(results);
+                var results = await _filmstudioRepository.GetAllFilmstudios();
+                return _mapper.Map<FilmstudioModel[]>(results);
             }
             catch (Exception)
             {
@@ -41,15 +41,33 @@ namespace Filmstudion.Controllers
         }
 
         [HttpGet("{studioName}")]
-        public async Task<ActionResult<FilmStudioModel>> GetStudio(string studioName)
+        public async Task<ActionResult<FilmstudioModel>> GetStudio(string studioName)
         {
             try
             {
-                var result = await _filmStudioRepository.GetFilmStudioByName(studioName);
+                var result = await _filmstudioRepository.GetFilmstudioByName(studioName);
 
                 if (result == null) return NotFound();
 
-                return _mapper.Map<FilmStudioModel>(result);
+                return _mapper.Map<FilmstudioModel>(result);
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+        [HttpGet("{studioId:int}")]
+        public async Task<ActionResult<FilmstudioModel>> GetStudio(int studioId)
+        {
+            try
+            {
+                var result = await _filmstudioRepository.GetFilmstudioById(studioId);
+
+                if (result == null) return NotFound();
+
+                return _mapper.Map<FilmstudioModel>(result);
 
             }
             catch (Exception)
