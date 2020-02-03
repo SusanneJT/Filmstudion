@@ -34,6 +34,7 @@ namespace Filmstudion
 
             services.AddScoped<IFilmstudioRepository, FilmstudioRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<ILendedMovieRepository, LendedMovieRepository>();
 
             services.AddAutoMapper(typeof(Startup));
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Filmstudion.Models
+namespace Filmstudion.Data
 {
     public class Filmstudio
     {
