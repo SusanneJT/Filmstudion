@@ -17,7 +17,7 @@ async function AllStudios() {
     var studios = await filmstudio.GetAll();
     $.each(studios, function (i) {
         $('<a class="dropdown-item" href="#" onclick="ChooseFilmStudio(\''
-            + studios[i].studioName + '\')">' + studios[i].studioName + '</a > ').appendTo("#dropDownItems");
+            + studios[i].filmstudioName + '\')">' + studios[i].filmstudioName + '</a > ').appendTo("#dropDownItems");
     });
 }
 

@@ -7,29 +7,38 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Data.Repository
 {
-    public class FilmStudioRepository : IFilmStudioRepository
+    public class FilmstudioRepository : IFilmstudioRepository
     {
         private readonly AppDbContext _appDbContext;
 
-        public FilmStudioRepository(AppDbContext appDbContext)
+        public FilmstudioRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
 
-        public async Task<FilmStudio[]> GetAllFilmStudios()
+        public async Task<Filmstudio[]> GetAllFilmstudios()
         {
-            IQueryable<FilmStudio> query = _appDbContext.FilmStudios;
+            IQueryable<Filmstudio> query = _appDbContext.Filmstudios;
 
             return await query.ToArrayAsync().ConfigureAwait(false);
         }
 
-        public async Task<FilmStudio> GetFilmStudioByName(string studioName)
+        public async Task<Filmstudio> GetFilmstudioByName(string studioName)
         {
-            var query = _appDbContext.FilmStudios
-                .Where(f => f.StudioName == studioName);
+            var query = _appDbContext.Filmstudios
+                .Where(f => f.FilmstudioName == studioName);
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task<Filmstudio> GetFilmstudioById(int studioId)
+        {
+            var query = _appDbContext.Filmstudios
+                .Where(f => f.FilmstudioId == studioId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
     }
 }

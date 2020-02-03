@@ -11,9 +11,9 @@ namespace Filmstudion.Models
         public string MovieTitle { get; set; }
         public string StoryLine { get; set; }
         public int MaxLendings { get; set; }
+
         //public List<Lending> ActiveLendings { get; set; }
         //public List<Rating> Ratings { get; set; }
-        //public List<Trivia> Trivia { get; set; }
-        
+        //public List<Trivia> Trivia { get; set; }   
     }
 }

@@ -9,7 +9,7 @@ namespace Filmstudion.Models
     {
         public int RatingId { get; set; }
         public int MovieId { get; set; }
-        public int FilmStudioId { get; set; }
+        public int FilmstudioId { get; set; }
        
     }
 }

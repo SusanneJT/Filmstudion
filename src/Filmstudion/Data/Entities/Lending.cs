@@ -7,8 +7,9 @@ namespace Filmstudion.Models
 {
     public class Lending
     {
-        public int LendingId { get; set; }
         public int MovieId { get; set; }
-        public int FilmStudioId { get; set; }
+        public Movie Movie { get; set; }
+        public int FilmstudioId { get; set; }
+        public Filmstudio Filmstudio { get; set; }
     }
 }

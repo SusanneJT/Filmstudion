@@ -3,14 +3,16 @@ using Filmstudion.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Filmstudion.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200202231739_some-changes")]
+    partial class somechanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,30 +30,12 @@ namespace Filmstudion.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FilmstudioName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FilmstudioId");
 
                     b.ToTable("Filmstudios");
-                });
-
-            modelBuilder.Entity("Filmstudion.Models.Lending", b =>
-                {
-                    b.Property<int>("FilmstudioId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilmstudioId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("Lending");
                 });
 
             modelBuilder.Entity("Filmstudion.Models.Movie", b =>
@@ -73,21 +57,6 @@ namespace Filmstudion.Migrations
                     b.HasKey("MovieId");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("Filmstudion.Models.Lending", b =>
-                {
-                    b.HasOne("Filmstudion.Models.Filmstudio", "Filmstudio")
-                        .WithMany("LendedMovies")
-                        .HasForeignKey("FilmstudioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Filmstudion.Models.Movie", "Movie")
-                        .WithMany("Lenders")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Models
 {
-    public class FilmStudioModel
+    public class FilmstudioModel
     {
-        public int FilmStudioId { get; set; }
-        public string StudioName { get; set; }
+        public int FilmstudioId { get; set; }
+        public string FilmstudioName { get; set; }
         public string City { get; set; }
     }
 }
