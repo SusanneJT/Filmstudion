@@ -13,7 +13,7 @@ namespace Filmstudion.Models
         public string StoryLine { get; set; }
         public int MaxLendings { get; set; }*/
         public Movie Movie { get; set; } 
-        public IEnumerable<LendedMovie> Lendings { get; set; }
+        public IEnumerable<LendedMovie> Lendings { get; set; } 
         public bool AvailableForLending { get; set; }
         public int CurrentLendings { get; set; }
  

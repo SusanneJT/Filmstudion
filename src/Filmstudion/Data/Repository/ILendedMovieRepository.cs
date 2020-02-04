@@ -10,6 +10,7 @@ namespace Filmstudion.Data.Repository
     {
         IEnumerable<LendedMovie> GetAllMoviesForLenderId(int filmstudioId, bool onlyActive = false);
         MovieModel GetMovieById(int movieId);
+        public bool CheckavAilability(int movieId, int maxLendings);
 
     }
 }
