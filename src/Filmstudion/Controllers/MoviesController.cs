@@ -31,17 +31,17 @@ namespace Filmstudion.Controllers
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<ListMoviesModel[]>> GetMovies()
+        public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            try
-            {
-                var results = await _movieRepository.GetAllMovies();
-                return _mapper.Map<ListMoviesModel[]>(results);
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
-            }
+            //try
+            //{
+                var results =  _movieRepository.GetAllMovies();
+                return Ok(results);
+            //}
+            //catch (Exception)
+            //{
+              //  return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
+            //}
         }
 
         // GET: api/Movies/5

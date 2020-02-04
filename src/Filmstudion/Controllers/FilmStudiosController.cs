@@ -44,24 +44,6 @@ namespace Filmstudion.Controllers
             }
         }
 
-        [HttpGet("{studioName}")]
-        public async Task<ActionResult<FilmstudioModel>> GetStudio(string studioName)
-        {
-            try
-            {
-                var result = await _filmstudioRepository.GetFilmstudioByName(studioName);
-
-                if (result == null) return NotFound();
-
-                return _mapper.Map<FilmstudioModel>(result);
-
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-        }
-
         [HttpGet("{studioId:int}")]
         public async Task<ActionResult<FilmstudioModel>> GetStudio(int studioId)
         {

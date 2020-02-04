@@ -9,5 +9,6 @@ namespace Filmstudion.Models
     {
         public int MovieId { get; set; }
         public string MovieTitle { get; set; }
+        public bool AvailableForLending { get; set; }
     }
 }

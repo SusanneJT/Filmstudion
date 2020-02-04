@@ -12,12 +12,10 @@ namespace Filmstudion.Data.Repository
     {
         private readonly AppDbContext _appDbContext;
         private readonly List<LendedMovie> _lendedMovies;
-        private readonly IMapper _mapper;
 
-        public LendedMovieRepository(AppDbContext appDbContext, IMapper mapper)
+        public LendedMovieRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _mapper = mapper;
 
             _lendedMovies = new List<LendedMovie>
             {
@@ -27,6 +25,11 @@ namespace Filmstudion.Data.Repository
                 new LendedMovie {LendedMovieId = 4, LenderId = 3, MovieId = 6, Active = true},
                 new LendedMovie {LendedMovieId = 5, LenderId = 2, MovieId = 6, Active = true}
             };
+
+            foreach (var lending in _lendedMovies)
+            {
+                lending.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == lending.LenderId);
+            }
         }
 
 
@@ -68,11 +71,11 @@ namespace Filmstudion.Data.Repository
             var movie = _appDbContext.Movies
                 .FirstOrDefault(m => m.MovieId == movieId);
 
-
             MovieModel movieModel = new MovieModel
             {
                 Movie = movie,
                 Lendings = _lendedMovies.Where(l => l.MovieId == movieId && l.Active == true)
+                
             };
 
             if (movie.MaxLendings <= movieModel.Lendings.Count())
@@ -87,8 +90,18 @@ namespace Filmstudion.Data.Repository
                 var getLenderId = lending.LenderId;
                 lending.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == getLenderId);
             }
-
+            
             return movieModel;
+        }
+
+        public bool CheckavAilability(int movieId, int maxLendings)
+        {
+            int activeLendings = _lendedMovies.Where(l => l.MovieId == movieId && l.Active == true).Count();
+            
+            if (activeLendings < maxLendings)
+                return true;
+            else
+                return false;
         }
     }
 }
