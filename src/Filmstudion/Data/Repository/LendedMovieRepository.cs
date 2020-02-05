@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Data.Repository
 {
-    public static class LendedMovieRepository : ILendedMovieRepository
+    public class LendedMovieRepository : ILendedMovieRepository
     {
         private readonly AppDbContext _appDbContext;
         private readonly List<LendedMovie> _lendedMovies;
