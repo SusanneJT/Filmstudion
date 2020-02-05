@@ -44,6 +44,17 @@ namespace Filmstudion.Controllers
             }
         }
 
+        // POST: api/FilmStudios
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost]
+        public ActionResult<Filmstudio> PostFilmStudio(Filmstudio filmstudio)
+        {
+            _filmstudioRepository.AddFilmstudio(filmstudio);
+            //return CreatedAtAction("GetFilmStudio", new { id = filmstudio.FilmstudioId }, filmstudio);
+            return Ok(filmstudio);
+        }
+
         [HttpGet("{studioId:int}")]
         public async Task<ActionResult<FilmstudioModel>> GetStudio(int studioId)
         {
@@ -61,6 +72,26 @@ namespace Filmstudion.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
         }
+
+        // PUT: api/FilmStudios/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPatch("{id}")]
+        public IActionResult ChangeFilmstudio(int filmstudioId, string filmstudioName, string city)
+        {
+            _filmstudioRepository.UpdateFilmstudio(filmstudioId, filmstudioName, city);
+
+            return NoContent();
+        }
+
+        // DELETE: api/FilmStudios/5
+        [HttpDelete("{id}")]
+        public ActionResult<Filmstudio> DeleteFilmStudio(int id)
+        {
+            _filmstudioRepository.DeleteFilmstudio(id);
+            return NoContent();
+        }
+
 
         [HttpGet("{studioId:int}/LendedMovies")]
         public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(int studioId, bool onlyActive = false)

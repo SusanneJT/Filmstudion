@@ -39,5 +39,37 @@ namespace Filmstudion.Data.Repository
             return await query.FirstOrDefaultAsync();
         }
 
+        public void AddFilmstudio(Filmstudio filmstudio)
+        {
+            _appDbContext.Filmstudios.Add(filmstudio);
+            _appDbContext.SaveChanges();
+        }
+
+        public void DeleteFilmstudio(int filmstudioId)
+        {
+            var filmStudio =  _appDbContext.Filmstudios.Find(filmstudioId);
+            if (filmStudio == null)
+            {
+                
+            }
+            else
+            {
+                _appDbContext.Filmstudios.Remove(filmStudio);
+                _appDbContext.SaveChanges();
+            }
+
+        }
+
+        public void UpdateFilmstudio(int filmstudioId, string filmstudioName, string city)
+        {
+            if (_appDbContext.Filmstudios.Find(filmstudioId) != null)
+            {
+                _appDbContext.Filmstudios.Find(filmstudioId).FilmstudioName = filmstudioName;
+                _appDbContext.Filmstudios.Find(filmstudioId).City = city;
+                _appDbContext.SaveChanges();
+            }
+        }
+
+
     }
 }
