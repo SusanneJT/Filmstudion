@@ -18,15 +18,38 @@ namespace Filmstudion.Data.Repository
             _lendedMovieRepository = lendedMovieRepository;
         }
 
+        public void AddMovie(Movie movie)
+        {
+            _appDbContext.Movies.Add(movie);
+            _appDbContext.SaveChanges();
+        }
+
         public IEnumerable<Movie> GetAllMovies()
         {
             var movies = _appDbContext.Movies;
             foreach (var movie in movies)
             {
                 movie.AvailableForLending = _lendedMovieRepository.CheckavAilability(movie.MovieId, movie.MaxLendings);
+                if (movie.AvailableForLending == true)
+                {
+                    _appDbContext.Movies.FirstOrDefault(m => m.MovieId == movie.MovieId).AvailableForLending = true;
+                }
+                else
+                {
+                    _appDbContext.Movies.FirstOrDefault(m => m.MovieId == movie.MovieId).AvailableForLending = false;
+                }
             }
+            _appDbContext.SaveChanges();
 
             return movies;
+        }
+
+        public void UpdateMaxLendings(int id, int maxLendings)
+        {
+
+            _appDbContext.Movies.FirstOrDefault(m => m.MovieId == id).MaxLendings = maxLendings;
+            _appDbContext.SaveChanges();
+
         }
 
         //reserv

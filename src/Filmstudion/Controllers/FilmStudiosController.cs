@@ -61,6 +61,7 @@ namespace Filmstudion.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
         }
+
         [HttpGet("{studioId:int}/LendedMovies")]
         public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(int studioId, bool onlyActive = false)
         {
@@ -77,6 +78,29 @@ namespace Filmstudion.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
+        }
+
+        [HttpPost("{studioId:int}/LendedMovies")]
+        public ActionResult<LendedMovie> AddLendedMovie(int studioId, int movieId)
+        {
+            try
+            {
+                _lendedMovieRepository.LendMovieForLenderId(studioId, movieId);
+
+                return NoContent();
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+        [HttpPatch("{studioId:int}/LendedMovies")]
+        public ActionResult<LendedMovie> ReturnLendedMovie(int studioId, int movieId)
+        {
+            _lendedMovieRepository.ReturnMovie(studioId, movieId);
+            return NoContent();
         }
 
         /*

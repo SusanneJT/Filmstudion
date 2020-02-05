@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Filmstudion.Data.Repository
 {
-    public class LendedMovieRepository : ILendedMovieRepository
+    public static class LendedMovieRepository : ILendedMovieRepository
     {
         private readonly AppDbContext _appDbContext;
         private readonly List<LendedMovie> _lendedMovies;
@@ -87,8 +87,7 @@ namespace Filmstudion.Data.Repository
 
             foreach (var lending in movieModel.Lendings)
             {
-                var getLenderId = lending.LenderId;
-                lending.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == getLenderId);
+                lending.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == lending.LenderId);
             }
             
             return movieModel;
@@ -99,9 +98,42 @@ namespace Filmstudion.Data.Repository
             int activeLendings = _lendedMovies.Where(l => l.MovieId == movieId && l.Active == true).Count();
             
             if (activeLendings < maxLendings)
-                return true;
+                return true;   
             else
-                return false;
+                return false;       
+        }
+
+        public void LendMovieForLenderId(int lenderId, int movieId)
+        {
+            int maxLending = _appDbContext.Movies.FirstOrDefault(m => m.MovieId == movieId).MaxLendings;
+            bool available = CheckavAilability(movieId, maxLending);
+
+            if (available)
+            {
+                LendedMovie lendedMovie = new LendedMovie()
+                {
+                    LendedMovieId = _lendedMovies.Count(),
+                    LenderId = lenderId,
+                    MovieId = movieId
+                };
+
+                _lendedMovies.Add(lendedMovie);
+            }
+        }
+
+        public void ReturnMovie(int lenderId, int movieId)
+        {
+            bool checkIfExists;
+
+            if (_lendedMovies.FirstOrDefault(l => l.LenderId == lenderId && l.MovieId == movieId) != null)
+                checkIfExists = true;
+            else
+                checkIfExists = false;
+
+
+            if (checkIfExists)
+                _lendedMovies.FirstOrDefault(l => l.LenderId == lenderId && l.MovieId == movieId).Active = false;
+
         }
     }
 }
