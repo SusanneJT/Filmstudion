@@ -8,7 +8,9 @@ namespace Filmstudion.Data.Repository
 {
     public interface IMovieRepository
     {
-        IEnumerable<Movie> GetAllMovies();
+        public IEnumerable<Movie> GetAllMovies();
+        public void AddMovie(Movie movie);
+        public void UpdateMaxLendings(int id, int maxLendings);
         //Task<Movie[]> GetAllMovies();
         //Task<Movie> GetMovieById(int id);
     }
