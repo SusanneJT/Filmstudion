@@ -16,6 +16,8 @@ namespace Filmstudion.Models
         public IEnumerable<LendedMovie> Lendings { get; set; } 
         public bool AvailableForLending { get; set; }
         public int CurrentLendings { get; set; }
- 
+        public IEnumerable<Rating> Ratings { get; set; }
+        public IEnumerable<Trivia> Trivia { get; set; }
+
     }
 }

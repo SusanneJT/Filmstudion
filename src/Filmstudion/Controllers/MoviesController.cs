@@ -78,48 +78,37 @@ namespace Filmstudion.Controllers
 
 
 
-           // PUT: api/Movies/5
-           // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-           // more details see https://aka.ms/RazorPagesCRUD.
-           [HttpPatch("{id}")]
-           public async Task<IActionResult> PatchUpdateMaxLendings(int id, int maxLendings)
-           {
-               _movieRepository.UpdateMaxLendings(id, maxLendings);
-               return NoContent();
-           }
+        // PUT: api/Movies/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchUpdateMaxLendings(int id, int maxLendings)
+        {
+            _movieRepository.UpdateMaxLendings(id, maxLendings);
+            return NoContent();
+        }
 
-            /*
-           // POST: api/Movies
-           // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-           // more details see https://aka.ms/RazorPagesCRUD.
-           [HttpPost]
-           public async Task<ActionResult<Movie>> PostMovie(Movie movie)
-           {
-               _context.Movies.Add(movie);
-               await _context.SaveChangesAsync();
+        [HttpPost("{movieId:int}/Rating")]
+        public ActionResult AddRating(Rating rating)
+        {
+            _movieRepository.AddRating(rating);
+            return NoContent();
+        }
 
-               return CreatedAtAction("GetMovie", new { id = movie.MovieId }, movie);
-           }
+        [HttpPost("{movieId:int}/Trivia")]
+        public ActionResult AddTrivia(Trivia trivia)
+        {
+            _movieRepository.AddTrivia(trivia);
+            return NoContent();
+        }
 
-           // DELETE: api/Movies/5
-           [HttpDelete("{id}")]
-           public async Task<ActionResult<Movie>> DeleteMovie(int id)
-           {
-               var movie = await _context.Movies.FindAsync(id);
-               if (movie == null)
-               {
-                   return NotFound();
-               }
+        [HttpDelete("{movieId:int}/{triviaId:int}")]
+        public ActionResult DeleteTrivia(int triviaId)
+        {
+            _movieRepository.DeleteTrivia(triviaId);
+            return NoContent();
+        }
 
-               _context.Movies.Remove(movie);
-               await _context.SaveChangesAsync();
 
-               return movie;
-           }
-
-           private bool MovieExists(int id)
-           {
-               return _context.Movies.Any(e => e.MovieId == id);
-           }*/
     }
 }
