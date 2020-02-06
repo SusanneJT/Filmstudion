@@ -52,6 +52,28 @@ namespace Filmstudion.Data.Repository
 
         }
 
+        public void AddRating(Rating rating)
+        {
+            rating.Filmstudio = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == rating.FilmstudioId);
+            _appDbContext.Ratings.Add(rating);
+            _appDbContext.SaveChanges();
+        }
+
+        public void AddTrivia(Trivia trivia)
+        {
+            _appDbContext.Trivia.Add(trivia);
+            _appDbContext.SaveChanges();
+        }
+
+        public void DeleteTrivia(int triviaId)
+        {
+            Trivia deleteTrivia = _appDbContext.Trivia.Find(triviaId);
+            _appDbContext.Trivia.Remove(deleteTrivia);
+            _appDbContext.SaveChanges();
+        }
+
+
+
         //reserv
         /*
         public async Task<Movie[]> GetAllMovies()
@@ -61,14 +83,14 @@ namespace Filmstudion.Data.Repository
             return await query.ToArrayAsync().ConfigureAwait(false);
         }
         */
-        
-       /* public async Task<Movie> GetMovieById(int movieId)
-        {
-            var query = _appDbContext.Movies
-                .Where(m => m.MovieId == movieId);
+
+        /* public async Task<Movie> GetMovieById(int movieId)
+         {
+             var query = _appDbContext.Movies
+                 .Where(m => m.MovieId == movieId);
 
 
-            return await query.FirstOrDefaultAsync();
-        }*/
+             return await query.FirstOrDefaultAsync();
+         }*/
     }
 }

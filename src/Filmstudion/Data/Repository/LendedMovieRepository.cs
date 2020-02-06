@@ -74,7 +74,9 @@ namespace Filmstudion.Data.Repository
             MovieModel movieModel = new MovieModel
             {
                 Movie = movie,
-                Lendings = _lendedMovies.Where(l => l.MovieId == movieId && l.Active == true)
+                Lendings = _lendedMovies.Where(l => l.MovieId == movieId && l.Active == true),
+                Ratings = _appDbContext.Ratings.Where(r => r.MovieId == movieId),
+                Trivia = _appDbContext.Trivia.Where(t => t.MovieId == movieId)
                 
             };
 

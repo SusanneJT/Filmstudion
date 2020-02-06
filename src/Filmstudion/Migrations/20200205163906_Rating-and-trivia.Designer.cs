@@ -3,14 +3,16 @@ using Filmstudion.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Filmstudion.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205163906_Rating-and-trivia")]
+    partial class Ratingandtrivia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,8 +86,6 @@ namespace Filmstudion.Migrations
 
                     b.HasKey("RatingId");
 
-                    b.HasIndex("FilmstudioId");
-
                     b.ToTable("Ratings");
                 });
 
@@ -95,6 +95,9 @@ namespace Filmstudion.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FilmstudioId")
+                        .HasColumnType("int");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -106,15 +109,6 @@ namespace Filmstudion.Migrations
                     b.HasKey("TriviaId");
 
                     b.ToTable("Trivia");
-                });
-
-            modelBuilder.Entity("Filmstudion.Models.Rating", b =>
-                {
-                    b.HasOne("Filmstudion.Data.Filmstudio", "Filmstudio")
-                        .WithMany()
-                        .HasForeignKey("FilmstudioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

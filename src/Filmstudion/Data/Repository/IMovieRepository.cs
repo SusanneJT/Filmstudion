@@ -11,7 +11,9 @@ namespace Filmstudion.Data.Repository
         public IEnumerable<Movie> GetAllMovies();
         public void AddMovie(Movie movie);
         public void UpdateMaxLendings(int id, int maxLendings);
-        //Task<Movie[]> GetAllMovies();
-        //Task<Movie> GetMovieById(int id);
+        public void AddRating(Rating rating);
+        public void AddTrivia(Trivia trivia);
+        public void DeleteTrivia(int triviaId);
+
     }
 }
