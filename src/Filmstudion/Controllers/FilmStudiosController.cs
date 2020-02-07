@@ -93,12 +93,31 @@ namespace Filmstudion.Controllers
         }
 
 
-        [HttpGet("{studioId:int}/LendedMovies")]
+        /*[HttpGet("{studioId:int}/LendedMovies")]
         public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(int studioId, bool onlyActive = false)
         {
             try
             {
                 var result =  _lendedMovieRepository.GetAllMoviesForLenderId(studioId, onlyActive);
+
+                if (result == null) return NotFound();
+
+                return Ok(result);
+
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }*/
+
+        [HttpGet("LendedMovies")]
+        //[HttpGet("{filmstudioName:string}/LendedMovies")]
+        public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(string filmstudioName, bool onlyActive = false)
+        {
+            try
+            {
+                var result = _lendedMovieRepository.GetAllMoviesForLender(filmstudioName, onlyActive);
 
                 if (result == null) return NotFound();
 

@@ -33,27 +33,29 @@ namespace Filmstudion.Data.Repository
         }
 
 
-        public IEnumerable<LendedMovie> GetAllMoviesForLenderId(int filmstudioId,bool onlyActive = false)
+        public IEnumerable<LendedMovie> GetAllMoviesForLender(string filmstudioName,bool onlyActive = false)
         {
+            int id = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioName == filmstudioName).FilmstudioId;
+
             if (onlyActive)
             {
                 var lendedMovies = _lendedMovies
-                    .Where(f => f.LenderId == filmstudioId && f.Active == true);
+                    .Where(f => f.LenderId == id && f.Active == true);
 
                 foreach (var film in lendedMovies)
                 {
                     film.Movie = _appDbContext.Movies.FirstOrDefault(m => m.MovieId == film.MovieId);
-                    film.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == filmstudioId);
+                    film.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == id);
                 }
                 return lendedMovies; 
             }
             else
             {
-                var lendedMovies = _lendedMovies.Where(f => f.LenderId == filmstudioId);
+                var lendedMovies = _lendedMovies.Where(f => f.LenderId == id);
                 foreach (var film in lendedMovies)
                 {
                     film.Movie = _appDbContext.Movies.FirstOrDefault(m => m.MovieId == film.MovieId);
-                    film.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == filmstudioId);
+                    film.Lender = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioId == id);
                 }
                 return lendedMovies;
             }   
