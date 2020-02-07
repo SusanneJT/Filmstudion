@@ -18,14 +18,11 @@ namespace Filmstudion.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly IMapper _mapper;
         private readonly ILendedMovieRepository _lendedMovieRepository;
 
-        public MoviesController(IMovieRepository movieRepository, 
-            IMapper mapper, ILendedMovieRepository lendedMovieRepository)
+        public MoviesController(IMovieRepository movieRepository, ILendedMovieRepository lendedMovieRepository)
         {
             _movieRepository = movieRepository;
-            _mapper = mapper;
             _lendedMovieRepository = lendedMovieRepository;
         }
 
@@ -33,15 +30,8 @@ namespace Filmstudion.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            //try
-            //{
-                var results =  _movieRepository.GetAllMovies();
-                return Ok(results);
-            //}
-            //catch (Exception)
-            //{
-              //  return this.StatusCode(StatusCodes.Status500InternalServerError, "Database failure");
-            //}
+            var results =  _movieRepository.GetAllMovies();
+            return Ok(results);
         }
 
         // GET: api/Movies/5
@@ -82,7 +72,7 @@ namespace Filmstudion.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchUpdateMaxLendings(int id, int maxLendings)
+        public IActionResult PatchUpdateMaxLendings(int id, int maxLendings)
         {
             _movieRepository.UpdateMaxLendings(id, maxLendings);
             return NoContent();

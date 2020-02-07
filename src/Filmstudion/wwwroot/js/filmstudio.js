@@ -6,4 +6,9 @@ class FilmStudio {
     async GetAll() {
         return fetch(this.URL).then(response => response.json());
     }
+
+    async GetLendingsForStudio(studioName) {
+        return fetch(this.URL + "LendedMovies?filmstudioName=" + studioName).then(response => response.json());
+    }
 }
+

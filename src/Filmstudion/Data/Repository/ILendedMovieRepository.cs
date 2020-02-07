@@ -8,7 +8,7 @@ namespace Filmstudion.Data.Repository
 {
     public interface ILendedMovieRepository
     {
-        public IEnumerable<LendedMovie> GetAllMoviesForLenderId(int filmstudioId, bool onlyActive = false);
+        public IEnumerable<LendedMovie> GetAllMoviesForLender(string filmstudioName, bool onlyActive = false);
         public MovieModel GetMovieById(int movieId);
         public bool CheckavAilability(int movieId, int maxLendings);
 
