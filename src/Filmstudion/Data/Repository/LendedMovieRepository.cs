@@ -107,7 +107,7 @@ namespace Filmstudion.Data.Repository
                 return false;       
         }
 
-        public void LendMovieForLenderId(int lenderId, int movieId)
+        public void LendMovieForStudioName(string studioName, int movieId)
         {
             int maxLending = _appDbContext.Movies.FirstOrDefault(m => m.MovieId == movieId).MaxLendings;
             bool available = CheckavAilability(movieId, maxLending);
@@ -117,7 +117,7 @@ namespace Filmstudion.Data.Repository
                 LendedMovie lendedMovie = new LendedMovie()
                 {
                     LendedMovieId = _lendedMovies.Count(),
-                    LenderId = lenderId,
+                    LenderId = _appDbContext.Filmstudios.FirstOrDefault(f => f.FilmstudioName == studioName).FilmstudioId,
                     MovieId = movieId
                 };
 

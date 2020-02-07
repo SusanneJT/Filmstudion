@@ -72,25 +72,5 @@ namespace Filmstudion.Data.Repository
             _appDbContext.SaveChanges();
         }
 
-
-
-        //reserv
-        /*
-        public async Task<Movie[]> GetAllMovies()
-        {
-            IQueryable<Movie> query = _appDbContext.Movies;
-
-            return await query.ToArrayAsync().ConfigureAwait(false);
-        }
-        */
-
-        /* public async Task<Movie> GetMovieById(int movieId)
-         {
-             var query = _appDbContext.Movies
-                 .Where(m => m.MovieId == movieId);
-
-
-             return await query.FirstOrDefaultAsync();
-         }*/
     }
 }
