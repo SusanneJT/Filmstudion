@@ -55,6 +55,7 @@ namespace Filmstudion.Controllers
             return Ok(filmstudio);
         }
 
+
         [HttpGet("{studioId:int}")]
         public async Task<ActionResult<FilmstudioModel>> GetStudio(int studioId)
         {
@@ -93,26 +94,9 @@ namespace Filmstudion.Controllers
         }
 
 
-        /*[HttpGet("{studioId:int}/LendedMovies")]
-        public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(int studioId, bool onlyActive = false)
-        {
-            try
-            {
-                var result =  _lendedMovieRepository.GetAllMoviesForLenderId(studioId, onlyActive);
 
-                if (result == null) return NotFound();
-
-                return Ok(result);
-
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-        }*/
-
+        //Gets all lended movies for a filmstudio
         [HttpGet("LendedMovies")]
-        //[HttpGet("{filmstudioName:string}/LendedMovies")]
         public ActionResult<IEnumerable<LendedMovie>> GetLendedMovies(string filmstudioName, bool onlyActive = false)
         {
             try
@@ -130,15 +114,14 @@ namespace Filmstudion.Controllers
             }
         }
 
-        [HttpPost("{studioId:int}/LendedMovies")]
-        public ActionResult<LendedMovie> AddLendedMovie(int studioId, int movieId)
+        //Adds an active lending if the movie is available
+        [HttpPost("LendedMovies")]
+        public ActionResult<LendedMovie> AddLendedMovie(string studioName, int movieId)
         {
             try
             {
-                _lendedMovieRepository.LendMovieForLenderId(studioId, movieId);
-
+                _lendedMovieRepository.LendMovieForStudioName(studioName, movieId);
                 return NoContent();
-
             }
             catch (Exception)
             {
@@ -146,6 +129,7 @@ namespace Filmstudion.Controllers
             }
         }
 
+        //Returns a lended movie, makes the lending not active
         [HttpPatch("{studioId:int}/LendedMovies")]
         public ActionResult<LendedMovie> ReturnLendedMovie(int studioId, int movieId)
         {

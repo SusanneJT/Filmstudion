@@ -12,7 +12,7 @@ namespace Filmstudion.Data.Repository
         public MovieModel GetMovieById(int movieId);
         public bool CheckavAilability(int movieId, int maxLendings);
 
-        public void LendMovieForLenderId(int lenderId, int movieId);
+        public void LendMovieForStudioName(string studioName, int movieId);
         public void ReturnMovie(int lenderId, int movieId);
 
     }

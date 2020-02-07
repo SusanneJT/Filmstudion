@@ -12,17 +12,16 @@ class Movie {
     }
 
     async UpdateMaxLendings(movieId, maxLending) {
-       // this.URL + movieId + "?maxLendings=" + maxLending
 
         fetch((this.URL + movieId + "?maxLendings=" + maxLending), {
             method: 'PATCH', body: JSON.stringify({
                 completed: true
             }),
             headers: {
-                'Content-type': 'application / json; charset = UTF - 8'}
-            })
-            .then(response => response.json())
-             .then(json => console.log(json))
+            'Content-type': 'application / json; charset = UTF - 8'}
+        })
+            .then(response => response.json());
+
     }
 
 

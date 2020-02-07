@@ -15,10 +15,21 @@ async function GetMovie() {
         + '<div class="col-4">'
         + '<h6 style="display: inline">Max antal utlaningar: </h6>' + chosenMovie.movie.maxLendings 
         + '</div> <div class="col-8">'
-        //+ '<button type="button" onclick="ChangeMaxLendings(\'' + chosenMovie.movie.movieId + '\')" class="btn btn-warning text-right">Andra</button>'
         + '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Andra</button>'
         + '</div></div>'
-        ).appendTo("#Movie");
+    ).appendTo("#Movie");
+
+
+    if (chosenMovie.movie.availableForLending == true) {
+        $('<p>' + chosenMovie.movie.movieTitle + ' ar tillganglig att lana.</p>'
+            + '<button type="button" class="btn btn-success" onclick="LendMovie()"'
+            +'> Lana</button > '
+        ).appendTo("#available-box");
+    }
+    else {
+        $('<p>' + chosenMovie.movie.movieTitle + ' kan inte lanas just nu.</p>'
+        ).appendTo("#available-box");
+    }      
 }
 
 async function ChangeMaxLendings() {
@@ -27,4 +38,10 @@ async function ChangeMaxLendings() {
     var newMax = $("#NewMaxLending").val();
     movie.UpdateMaxLendings(movieId, newMax);
     location.reload()
+}
+
+async function LendMovie() {
+    var movieId = sessionStorage.getItem("movieId");
+    var studioName = sessionStorage.getItem("ChosenStudio");
+    filmstudio.LendMovie(studioName, movieId);
 }
